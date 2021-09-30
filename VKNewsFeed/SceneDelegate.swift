@@ -6,27 +6,41 @@
 //
 
 import UIKit
-//import VKSdkFramework
 import VK_ios_sdk
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthorizationSeviceDelegate {
+
+
 
     var window: UIWindow?
+    var authorizationService: AuthorizationService!
 
-
-    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-      
-        guard let _ = (scene as? UIWindowScene) else { return }
+    static func shared () -> SceneDelegate {
+        let scene = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)!
+        return scene
     }
 
-  /*  func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
+
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        authorizationService = AuthorizationService()
+        authorizationService.authorizationSeviceDelegate = self
+        window = UIWindow(windowScene: windowScene)
+        guard let window = window else { return }
+        let authViewController = UINavigationController(rootViewController: AuthorizationViewController())
+        window.rootViewController = authViewController
+        window.makeKeyAndVisible()
+    }
+
+    
+//Инициализация SDK
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
             VKSdk.processOpen(url, fromApplication: UIApplication.OpenURLOptionsKey.sourceApplication.rawValue)
         }
-    }*/
+    }
+
+
 
     func sceneDidDisconnect(_ scene: UIScene) {
         // Called as the scene is being released by the system.
@@ -54,6 +68,23 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Called as the scene transitions from the foreground to the background.
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
+    }
+
+    // MARK: - AuthorizationSeviceDelegate
+    func authServiceShouldShow(vc: UIViewController) {
+        window?.rootViewController?.present(vc, animated: true, completion: nil)
+    }
+
+
+    func authServiceSignIn() {
+        print(#function)
+        window?.rootViewController = UINavigationController(rootViewController: FeedViewController())
+
+    }
+
+    func authServiceDidFail() {
+        print(#function)
+
     }
 
 
