@@ -83,7 +83,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthorizationSeviceDele
 
     func authServiceSignIn() {
         print(#function)
-        window?.rootViewController = UINavigationController(rootViewController: FeedViewController())
+        window?.rootViewController = UINavigationController(rootViewController: NewsFeedViewController())
 
     }
 
