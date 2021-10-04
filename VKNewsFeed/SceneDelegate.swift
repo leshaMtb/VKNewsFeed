@@ -9,6 +9,10 @@ import UIKit
 import VK_ios_sdk
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthorizationSeviceDelegate {
+    func authServiceDidSignInFail() {
+        print("fail")
+    }
+
 
 
 
@@ -24,7 +28,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthorizationSeviceDele
 
         guard let windowScene = (scene as? UIWindowScene) else { return }
         authorizationService = AuthorizationService()
-        authorizationService.authorizationSeviceDelegate = self
+       // authorizationService.authorizationSeviceDelegate = self
+        authorizationService.authorizationSeviceDelegatete = self
         window = UIWindow(windowScene: windowScene)
         guard let window = window else { return }
         let authViewController = UINavigationController(rootViewController: AuthorizationViewController())
@@ -71,7 +76,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, AuthorizationSeviceDele
     }
 
     // MARK: - AuthorizationSeviceDelegate
-    func authServiceShouldShow(vc: UIViewController) {
+    func authServiceShouldShow(_ vc: UIViewController) {
         window?.rootViewController?.present(vc, animated: true, completion: nil)
     }
 
