@@ -101,6 +101,7 @@
 				18850B6B270B574700C9E8AA /* NewsFeedWorker.swift */,
 				18850B6D270B574700C9E8AA /* NewsFeedModels.swift */,
 				18850B6E270B574700C9E8AA /* NewsFeedViewController.swift */,
+				18850B7F270BA47100C9E8AA /* FeedCollectionViewCell.swift */,
 			);
 			path = NewsFeed;
 			sourceTree = "<group>";
@@ -136,7 +137,6 @@
 				18A809B42704A19C00BE0E12 /* LaunchScreen.storyboard */,
 				18A809B72704A19C00BE0E12 /* Info.plist */,
 				18FEBC722705CC1400B2CF9E /* .gitignore */,
-				18850B7F270BA47100C9E8AA /* FeedCollectionViewCell.swift */,
 			);
 			path = VKNewsFeed;
 			sourceTree = "<group>";

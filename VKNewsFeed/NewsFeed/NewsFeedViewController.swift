@@ -41,7 +41,13 @@ class NewsFeedViewController: UIViewController, NewsFeedDisplayLogic {
     }
 
     func displayData(viewModel: NewsFeed.Model.ViewModel.ViewModelData) {
+        switch viewModel {
 
+        case .some:
+            print("some viewController")
+        case .displayNewsFeed:
+            print("viewController displayNewsFeed ")
+        }
     }
 
 
@@ -65,7 +71,13 @@ extension NewsFeedViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width: CGFloat = collectionView.bounds.width - 32
-        return CGSize(width: width, height: 150)
+
+        if indexPath.item / 2 == 1  {
+            return CGSize(width: width, height: 150)
+        } else {
+            return CGSize(width: width, height: 300)
+        }
+
 
     }
 
@@ -87,7 +99,8 @@ extension NewsFeedViewController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("ты нажал на \(indexPath.item)")
+        print("ViewController ты нажал на \(indexPath.item) ")
+        interactor?.makeRequest(request: .getFeed)
     }
 
 
